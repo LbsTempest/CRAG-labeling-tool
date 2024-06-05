@@ -1,0 +1,12 @@
+/.vscode
+/build
+/crag_data_responses_Llama3_70B_20240604.jsonl
+/dist
+/main.exe
+/main.spec
+/onefile.spec
+/test.json
+/test.py
+/test1.json
+/window.ui
+/__pycache__

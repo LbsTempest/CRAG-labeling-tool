@@ -61,10 +61,6 @@
             "relevant_sentence": [
                 "def",
                 "..."
-            ],
-            "is_relevant":[
-                true,
-                false
             ]
         },
         {
@@ -72,12 +68,12 @@
             "relevant_sentence": [
                 "def",
                 "..."
-            ],
-            "is_relevant":[
-                true,
-                false
             ]
         },
+    ],
+    "is_sentence_relevant": [
+        true,
+        false
     ],
     "is_sentences_correct": true,
     "time_spent": 1.234
@@ -91,6 +87,7 @@
 
 1. 如果单个句子符合 query 与 answer，则勾选该句子
 2. 如果多个句子都符合 query 与 answer，则勾选最底部的 checkbox
+3. 建议在标注前几个句子时检查标注结果是否正确，如果由于程序错误导致记录的标注结果不正确，请及时反馈
 
 ## 使用方法
 

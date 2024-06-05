@@ -60,11 +60,11 @@ class MainWindow(QMainWindow):
         if not self.ui.id_input.text() or not is_valid_number(self.ui.id_input.text()):
             self.ui.info_label.setText("Please input valid student ID!")
             return
-        
+
         if not self.ui.jsonl_path_label.text():
             self.ui.info_label.setText("Please select a jsonl file!")
             return
-        
+
         if self.start_line > self.end_line or self.start_line < 0 or self.end_line > self.file_length:
             self.ui.info_label.setText("Please input valid start and end line number!")
 
@@ -151,16 +151,20 @@ class MainWindow(QMainWindow):
             "query": self.query,
             "answer": self.answer,
             "response": self.response,
+            "is_sentence_relevant": [],
             "is_sentences_correct": self.ui.is_sentences_correct.isChecked(),
             "time_spent": time_spent
         }
 
         num_sentences = 0
+        is_relevant = False
 
-        for i, toq_sen in enumerate(self.response):
-            for sentence in toq_sen["relevant_sentence"]:
-                save_content["response"][i]["is_relevant"].append(self.button_list[num_sentences].isChecked())
+        for toq_sen in self.response:
+            for _ in toq_sen["relevant_sentence"]:
+                is_relevant = is_relevant or self.button_list[num_sentences].isChecked()
                 num_sentences += 1
+            save_content["is_sentence_relevant"].append(is_relevant)
+            is_relevant = False
 
         with open(save_file_name, 'a') as f:
             f.write(json.dumps(save_content) + "\n")

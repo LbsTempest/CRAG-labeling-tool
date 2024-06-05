@@ -3,7 +3,7 @@ import json
 import re
 from time import time
 
-from PyQt5 import QtWidgets, QtCore
+from PyQt5 import QtWidgets, QtCore, QtGui
 from PyQt5.QtWidgets import QMainWindow, QFileDialog
 
 from window import Ui_MainWindow
@@ -54,6 +54,7 @@ class MainWindow(QMainWindow):
         self.button_list = []
         self.relevant_sentences = []
         self.generator = None
+        self.font = QtGui.QFont("Arial", 16)
 
     def start_process(self):
         if not self.ui.id_input.text() or not is_valid_number(self.ui.id_input.text()):
@@ -96,9 +97,15 @@ class MainWindow(QMainWindow):
         self.response: str = line["response"]
 
         clear_layout(self.ui.lines_layout)
+        query_widget = QtWidgets.QLabel(f"Query: {self.query}")
+        answer_widget = QtWidgets.QLabel(f"Answer: {self.answer}")
+        query_widget.setFont(self.font)
+        answer_widget.setFont(self.font)
+        query_widget.setWordWrap(True)
+        answer_widget.setWordWrap(True)
 
-        self.ui.lines_layout.addWidget(QtWidgets.QLabel(f"Query: {self.query}"))
-        self.ui.lines_layout.addWidget(QtWidgets.QLabel(f"Answer: {self.answer}"))
+        self.ui.lines_layout.addWidget(query_widget)
+        self.ui.lines_layout.addWidget(answer_widget)
 
         self.relevant_sentences: list[str] = []
 
@@ -109,10 +116,11 @@ class MainWindow(QMainWindow):
         self.text_list = []
         self.button_list = []
         layout_list = QtWidgets.QVBoxLayout()
-        for sentence in self.relevant_sentences:
-            text_label = QtWidgets.QLabel(sentence)
+        for i, sentence in enumerate(self.relevant_sentences):
+            text_label = QtWidgets.QLabel(f"{i+1}: {sentence}")
             button = QtWidgets.QCheckBox()
 
+            text_label.setFont(self.font)
             text_label.setWordWrap(True)
 
             single_sentence_layout = QtWidgets.QHBoxLayout()

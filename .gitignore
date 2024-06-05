@@ -5,8 +5,8 @@
 /main.exe
 /main.spec
 /onefile.spec
-/test.json
 /test.py
-/test1.json
+/*.json
 /window.ui
 /__pycache__
+/*.jsonl
